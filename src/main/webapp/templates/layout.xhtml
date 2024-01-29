@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="../resources/css/default.css" rel="stylesheet" type="text/css"/>
+        <link href="../resources/css/style.css" rel="stylesheet" type="text/css"/>
+
+        <title>Barrera Blogs</title>
+        
+        <style>
+        * {
+          box-sizing: border-box;
+        }
+
+        body,html {
+          font-family: Arial, Helvetica, sans-serif;
+          height: 100%;
+        }
+
+        /* Style the header */
+        .header {
+          background-color: #f1f1f1;
+          padding: 10px;
+          /*text-align: center;*/
+          font-size: 25px;
+          display: flex;
+          align-items: center;
+        }
+
+        /* Create three unequal columns that floats next to each other */
+        .column {
+          float: left;
+          padding: 10px; 
+        }
+
+        /* Left and right column */
+        .column.side {
+          width: 15%;
+          height: 100vh;
+        }
+
+        /* Middle column */
+        .column.middle {
+          width: 85%;
+          height: 100vh;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+          content: "";
+          display: table;
+          clear: both;
+          height: auto;
+        }
+
+        /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+        @media (max-width: 600px) {
+          .column.side, .column.middle {
+            width: 100%;
+          }
+        }
+    </style>    
+    </h:head>
+
+    <h:body>
+
+
+       <div class="header">
+            <h4 style="margin: auto;">BANCO DE DESARROLLO DE EL SALVADOR</h4>
+            <h:form>
+                <p:commandButton value="Logout" action="#{usuariosBean.logout}" style="margin-left:auto;"></p:commandButton>
+            </h:form>
+            
+
+        </div>
+
+        <div class="row">
+          <div class="column side" >
+              <h:form>
+              <p:menu style="widht:100%">                  
+                  <p:submenu label="Catalogs">
+                      <p:menuitem value="Readers" action="/templates/readerView.xhtml" ajax="false" icon="pi pi-users"/>
+                      <p:menuitem value="Blogs" action="/templates/blogView.xhtml" ajax="false" icon="pi pi-copy"/>
+                  </p:submenu>
+                  <p:submenu label="Operation">
+                      <p:menuitem value="Readers per Blog" action="/templates/blogReaderView.xhtml" ajax="false" icon="pi pi-id-card"/>
+                  </p:submenu>
+              </p:menu>
+                  </h:form>
+          </div>
+            <div class="column middle" style="text-align: center; margin-top: 10px;">
+                
+                <ui:insert name="content"></ui:insert>
+              
+            </div>
+        </div>
+
+    </h:body>
+
+</html>

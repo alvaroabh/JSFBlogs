@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+        <ui:composition template="/templates/layout.xhtml" 
+                        xmlns="http://www.w3.org/1999/xhtml"
+                        xmlns:ui="http://java.sun.com/jsf/facelets"
+                        xmlns:h="http://java.sun.com/jsf/html"
+                        xmlns:p="http://primefaces.org/ui"
+                        xmlns:f="http://java.sun.com/jsf/core">
+           
+            <ui:define name="content">
+                
+                <h1>ADMIN BLOGS</h1>
+               
+               <div class="card crud-demo">
+                   <h:form id="form">
+                       <p:growl id="messages" showDetail="true" />
+                       
+                       <p:toolbar>
+                           <p:toolbarGroup>
+                               <p:commandButton value="New" icon="pi pi-plus" styleClass="ui-button-success" 
+                                                style="margin-right: .5rem"                                                
+                                                actionListener="#{blogsBean.openNew}"
+                                                update=":dialogs:manage-blog-content" 
+                                                oncomplete="PF('manageBlogDialog').show()">
+                                    <p:resetInput target=":dialogs:manage-blog-content" />
+                                </p:commandButton>
+                           </p:toolbarGroup>
+                       </p:toolbar>
+                       
+                       <p:dataTable id="dt-blogs" widgetVar="dtBlogs" var="blog" value="#{blogsBean.listBlogs}"
+                                    reflow="true" styleClass="products-table" selection="#{blogsBean.blog}"
+                                    selectionMode="single"
+                                        rowKey="#{blog.id}" paginator="true" rows="10" paginatorPosition="bottom">
+                           
+                           <f:facet name="header">
+                                <div class="products-table-header">
+                                    <span style="margin-left: auto;" class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i>
+                                        <p:inputText id="globalFilter" onkeyup="PF('dtBlogs').filter()" placeholder="Search" />
+                                    </span>
+                                </div>
+                            </f:facet>
+                           
+                           <p:column selectionMode="multiple" style="text-align: left;" exportable="false"></p:column>
+                           
+                           <p:column headerText="ID" sortBy="#{blog.id}" style="text-align: center;">
+                                <h:outputText value="#{blog.id}" />
+                            </p:column>
+                            <p:column headerText="TITLE" sortBy="#{blog.title}" style="text-align: center;">
+                                <h:outputText value="#{blog.title}" />
+                            </p:column>
+                           
+                           <p:column headerText="DESCRIPTION" sortBy="#{blog.description}" style="text-align: center;">
+                                <h:outputText value="#{blog.description}" />
+                            </p:column>
+                           
+                           <p:column exportable="false">
+                               <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-blog-content"
+                                    oncomplete="PF('manageBlogDialog').show()"
+                                    styleClass="edit-button rounded-button ui-button-success" process="@this">
+                                    <f:setPropertyActionListener value="#{blog}" target="#{blogsBean.blog}" />
+                                    <p:resetInput target=":dialogs:manage-blog-content" />
+                                </p:commandButton>
+                                <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                                process="@this"
+                                                oncomplete="PF('deleteBlogDialog').show()">
+                                   <f:setPropertyActionListener value="#{blog}" target="#{blogsBean.blog}" />
+                               </p:commandButton>
+                            </p:column>
+                       
+                       </p:dataTable>
+                   </h:form>
+                   
+                   <h:form id="dialogs">
+                       <p:dialog header="Blogs Details" showEffect="fade" modal="true" widgetVar="manageBlogDialog"
+                           responsive="true">
+                           
+                           <p:outputPanel id="manage-blog-content" class="ui-fluid">
+                               <p:outputPanel>
+                               
+                                   <div class="field">
+                                        <p:outputLabel for="idblog">ID</p:outputLabel>
+                                        <p:inputText id="idblog" value="#{blogsBean.blog.id}" disabled="true" />
+                                    </div>
+                                    <div class="field">
+                                        <p:outputLabel for="title">TITLE</p:outputLabel>
+                                        <p:inputTextarea id="title" value="#{blogsBean.blog.title}" />
+                                    </div>
+                                   <div class="field">
+                                        <p:outputLabel for="description">Description</p:outputLabel>
+                                        <p:inputTextarea id="description" value="#{blogsBean.blog.description}" />
+                                    </div>
+                               
+                               </p:outputPanel>                               
+                           </p:outputPanel>
+                           
+                           <f:facet name="footer">
+                                <p:commandButton value="Save" icon="pi pi-check" actionListener="#{blogsBean.saveBlog}"
+                                    update="manage-blog-content" process="@this manage-blog-content" />
+                                <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageBlogDialog').hide()"
+                                    class="ui-button-secondary" type="button" />
+                            </f:facet>                                                                
+                       </p:dialog>
+                       
+                       
+                       <p:confirmDialog widgetVar="deleteBlogDialog" showEffect="fade" width="300"
+                            message="Delete the Blog?" header="Confirm" severity="warn">
+                            <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{blogsBean.deleteBlog}"
+                                process="@this"
+                                oncomplete="PF('deleteBlogDialog').hide()" />
+                            <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                                onclick="PF('deleteBlogDialog').hide()" />
+                        </p:confirmDialog>
+                       
+                       
+                       <p:confirmDialog global="true" showEffect="fade" width="300">
+                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary"
+                                icon="pi pi-times" />
+                        </p:confirmDialog>
+                   </h:form>
+               </div>
+                    
+
+             </ui:define>
+
+        </ui:composition>

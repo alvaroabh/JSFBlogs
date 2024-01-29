@@ -1,0 +1,14 @@
+com\barrera\jsfblogs\bean\UsuariosBean.class
+com\barrera\jsfblogs\entities\Blogs_.class
+com\barrera\jsfblogs\dao\BlogEjb.class
+com\barrera\jsfblogs\bean\MainBean.class
+com\barrera\jsfblogs\entities\Usuarios_.class
+com\barrera\jsfblogs\dao\ReaderEJB.class
+com\barrera\jsfblogs\entities\Usuarios.class
+com\barrera\jsfblogs\entities\Blogs.class
+com\barrera\jsfblogs\entities\Readers.class
+com\barrera\jsfblogs\dao\UsuarioEJB.class
+com\barrera\jsfblogs\bean\BlogReadersBean.class
+com\barrera\jsfblogs\entities\Readers_.class
+com\barrera\jsfblogs\bean\BlogsBean.class
+com\barrera\jsfblogs\bean\ReadersBean.class
